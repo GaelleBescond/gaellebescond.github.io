@@ -9,7 +9,7 @@ class Rifle extends Weapon {
         this.bulletVelocity = 2500;
         this.damage = 2;
         this.consumption = 10
-        this.weaponCooldown = 100;
+        this.weaponCooldown = 500;
         this.weaponCanShoot = true;
         this.projectilesPerShoot = 3;
         this.camZoom = 0.55;

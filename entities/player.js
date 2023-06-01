@@ -14,15 +14,19 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.hp = 100;
         this.maxhp = this.hp;
         this.canMove = true;
-        this.body.maxVelocity.x = 800;
+        this.body.maxVelocity.x = 1200;
         this.body.maxVelocity.y = 1000;
         this.body.acceleration.x = 0;
         this.canThrust = true;
         this.energy = 300
+        this.energy = this.energy
         this.maxEnergy = this.energy;
         this.cursors = this.scene.input.keyboard.createCursorKeys();
         this.airStatus = true;
         this.goingDown = false;
+        this.iFrame = false;
+        this.body.setDamping(true)
+        this.body.setDrag(0.005, 1)
     }
     initEvents() {
         this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
@@ -31,7 +35,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     update() {
         //made as QWERTY, configured in AZERTY
         const { left, right, up, down, space } = this.cursors;
-        const wKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         const aKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         const sKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         const dKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -41,16 +44,18 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.goingDown = false
         }
-
+        if ((this.energy < 300) && ((aKey.isUp && dKey.isUp && sKey.isUp) || this.body.blocked.down) && space.isUp) {
+            this.energy += 1;
+            if (this.energy < 0) {
+                this.energy = 0
+            }
+        }
 
         if (this.body.blocked.down) {
-            this.groundMovements(left, right, up, down, space, wKey, aKey, sKey, dKey);
-            if (this.energy < 300) {
-                this.energy += 1;
-                if (this.energy < 0) {
-                    this.energy = 0
-                }
-            }
+            this.groundMovements(left, right, up, down, space, aKey, sKey, dKey);
+            this.body.setDrag(0.005, 1)
+
+
             this.airStatus = false;
         } else {
             this.delayedEvent = this.scene.time.delayedCall(400, () => {
@@ -60,81 +65,62 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
 
         if (this.airStatus) {
-            this.airMovements(left, right, up, down, space, wKey, aKey, sKey, dKey);
+            this.airMovements(left, right, up, down, space, aKey, sKey, dKey);
+            this.body.setDrag(0.25, 1.5)
         }
         //Animations
         this.animate();
-
     }
 
-    groundMovements(left, right, up, down, space, wKey, aKey, sKey, dKey) {
-        if (left.isDown || right.isDown || aKey.isDown || dKey.isDown) {
-            if (left.isDown || aKey.isDown) {
-                if (this.body.velocity.x > 0) {
-                    this.body.acceleration.x = -2400;
-                }
-                else {
-                    this.body.acceleration.x = -800;
-                }
-            }
-            if (right.isDown || dKey.isDown) {
-                if (this.body.velocity.x < 0) {
-                    this.body.acceleration.x = 2400;
-                } else {
-                    this.body.acceleration.x = 800;
-                }
-            }
+    groundMovements(left, right, up, down, space, aKey, sKey, dKey) {
+        if (aKey.isDown) {
+            this.body.acceleration.x = -2400;
+        } else if (dKey.isDown) {
+            this.body.acceleration.x = 2400;
+        } else { this.body.acceleration.x = 0; }
 
-        } else if (this.body.velocity.x >= 100) {
-            this.body.acceleration.x -= 100;
-        } else if (this.body.velocity.x <= - 100) {
-            this.body.acceleration.x += 100;
-        } else if (-20 < this.body.velocity.x < 20) {
-            //ground friction
-            this.setVelocityX(0);
-            this.body.acceleration.x = 0;
-        }
-        if (this.body.blocked.right || this.body.blocked.left) {
+        if ((this.body.blocked.right || this.body.blocked.left)) {
             this.body.acceleration.x = 0
         }
 
         //jump
-        if ((space.isDown || wKey.isDown) && sKey.isUp) {
-            this.body.acceleration.y = -700;
+        if (space.isDown && sKey.isUp) {
+            this.body.acceleration.y = -600;
             this.setVelocityY(this.body.acceleration.y);
         } else {
             this.body.acceleration.y = 0;
         }
     }
 
-    airMovements(left, right, up, down, space, wKey, aKey, sKey, dKey) {
-        this.body.acceleration.y += 20;
-        if ((space.isDown || wKey.isDown) && sKey.isUp && this.canThrust && (this.body.velocity.y > 0) && this.energy > 0) {
-            this.body.velocity.y = this.body.velocity.y / 2
-            this.energy -= 1;
-        }
-        if ((left.isDown || aKey.isDown) || (right.isDown || dKey.isDown)) {
-            if ((left.isDown || aKey.isDown) && this.body.acceleration.x > -400) {
-                this.body.acceleration.x -= 60;
+
+    airMovements(left, right, up, down, space, aKey, sKey, dKey) {
+        let accel = 120
+
+
+
+
+
+        if (this.canThrust && this.energy > 0) {
+            if (space.isDown && sKey.isUp && this.body.velocity.y > 0) {
+                this.energy -= 1;
+                this.body.velocity.y = this.body.velocity.y / 2
             }
-            if ((right.isDown || dKey.isDown) && this.body.acceleration.x < 400) {
-                this.body.acceleration.x += 60;
+            if (aKey.isDown) {
+                this.energy -= 1;
+                this.body.acceleration.x -= accel;
+            } else if (dKey.isDown) {
+                this.energy -= 1;
+                this.body.acceleration.x += accel;
+            } else {
+                this.body.acceleration.x = 0;
             }
-        }
-        //air friction
-        else if (this.body.velocity.x > 5) {
-            this.body.acceleration.x -= 5;
-        }
-        else if (this.body.velocity.x < -5) {
-            this.body.acceleration.x += 5;
-        } else if (-5 < this.velocityX < 5) {
-            //ground friction
+        } else if (aKey.isDown) {
+            this.body.acceleration.x -= accel / 4;
+        } else if (dKey.isDown) {
+            this.body.acceleration.x += accel / 4;
+        } else {
             this.body.acceleration.x = 0;
         }
-        if (this.body.blocked.right || this.body.blocked.left) {
-            this.body.acceleration.x = 0
-        }
-        this.setVelocityX(this.body.acceleration.x);
 
     }
 
@@ -168,8 +154,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     loseHP(value) {
-        console.log(value)
-        this.hp -= value;
+        if (!this.iFrame) {
+            this.hp -= value;
+            this.iFrame = true
+            this.setTint(0xFF0000)
+            this.delayedEvent = this.scene.time.delayedCall(500, () => {
+                this.iFrame = false;
+                this.setTint()
+            });
+        }
     }
 
 }

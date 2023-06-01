@@ -29,7 +29,7 @@ class MainMenu extends Phaser.Scene {
             .on('pointerout', () => this.buttonResume.setStyle({ fill: this.colorNA }))
 
 
-        this.buttonGame = this.add.text(this.width/2, this.increment * 12, 'Start Beta', { fontFamily: this.font, fontSize: '32px', fill: this.colorMain })
+        this.buttonGame = this.add.text(this.width/2, this.increment * 12, 'Start Campain', { fontFamily: this.font, fontSize: '32px', fill: this.colorMain })
             .setOrigin(0.5)
             .setPadding(10)
             .setStyle({ backgroundColor: '#555' })
@@ -82,7 +82,7 @@ class MainMenu extends Phaser.Scene {
 
 
         this.buttonResume.on('pointerdown', () => this.switchMenu.call(this, '0'));
-        this.buttonGame.on('pointerdown', () => this.startLevel.call(this, 'Beta_test'));
+        this.buttonGame.on('pointerdown', () => this.startLevel.call(this, 'Mission01_scene01'));
         this.buttonTutorial.on('pointerdown', () => this.startLevel.call(this, '0'));
         this.buttonSettings.on('pointerdown', () => this.switchMenu.call(this, 'Settings'));
         this.buttonTestroom.on('pointerdown', () => this.switchMenu.call(this, '0'));
@@ -110,7 +110,7 @@ class MainMenu extends Phaser.Scene {
 
     playAmbientMusic(music) {
         this.game.sound.stopAll()
-        this.sound.play(music, { volume: this.musicVolume });
+        this.sound.play(music, { volume: this.musicVolume, loop: true  });
     }
 }
 

@@ -12,7 +12,6 @@ class Soldier extends Enemy {
         this.cooldown = 2000;
         this.body.maxVelocity.x = 800;
         this.body.maxVelocity.y = 1000;
-        this.patrolRange = 0;
         this.lineOfSight = 2000;
         this.speed = 300;
         this.body.velocity.x = this.speed;
@@ -22,13 +21,18 @@ class Soldier extends Enemy {
         this.bulletDamage = 5;
         this.isOnCooldown = false;
         this.targetInRange = false;
+        this.timer = 0
     }
 
     update(player) {
         if (this.body) {
-            // this.turnBack();     
             if (this.body.blocked.right || this.body.blocked.left) {
                 this.jump()
+                this.timer += 1
+                if (this.timer = 100) {
+                    this.timer = 0
+                    this.turnBack();
+                }
             }
         }
 

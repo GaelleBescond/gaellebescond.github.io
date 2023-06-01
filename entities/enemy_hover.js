@@ -15,7 +15,6 @@ class Hover extends Enemy {
         this.body.maxVelocity.x = 800;
         this.body.maxVelocity.y = 1000;
         this.body.setAllowGravity(false)
-        this.patrolRange = 0;
         this.lineOfSight = 5000;
         this.stableY = this.body.y;
         this.speed = 500;

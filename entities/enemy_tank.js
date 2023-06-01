@@ -1,5 +1,3 @@
-
-
 import Enemy from "./enemy.js";
 class Tank extends Enemy {
 
@@ -12,10 +10,8 @@ class Tank extends Enemy {
         this.canMove = true;
         this.canShoot = true;
         this.cooldown = 2000;
-        this.range = 1500;
         this.body.maxVelocity.x = 800;
         this.body.maxVelocity.y = 1000;
-        this.patrolRange = 0;
         this.lineOfSight = 3000;
         this.speed = 300;
         this.body.velocity.x = this.speed;
@@ -31,9 +27,6 @@ class Tank extends Enemy {
         if (this.body) {
             this.turnBack();
         }
-
-
-
     }
 
 }

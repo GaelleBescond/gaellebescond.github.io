@@ -55,6 +55,7 @@ class Beta_test extends LevelTemplate {
     this.qKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.updateUI = new Phaser.Events.EventEmitter();
+    this.wincondition = true;
   };
 
   update() {
