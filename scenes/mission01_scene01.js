@@ -26,9 +26,11 @@ class Mission01_scene01 extends LevelTemplate {
     this.killcount = 0;
     this.sceneEnemies = 0;
     this.progress = 0.0
+    this.progressMax = 4
+    this.timer = 0
 
-    this.objective = "Let's get started, destroy all targets and reach the flag in the east";
-    this.popUp = "Use Q,D and Z/Space to move, left click to shoot";
+    this.objective = "Welcome to the training fields recruit. Today we will teach you how to move with your battle armor.";
+    this.popUp = "Use Q and D to move. Space to jump";
   };
 
   create() {
@@ -59,14 +61,49 @@ class Mission01_scene01 extends LevelTemplate {
   };
 
   update() {
-    this.progress = this.killcount / this.sceneEnemies * 100;
-    this.updateUI.emit('newMessage', this.objective, this.popUp);
+    this.timer++
+    console.log(this.timer)
     //gameplay methods
     this.generalPositioning();
     this.updateCamera();
-    //level tools for player
-    //this.swapGun(this.eKey, this.qKey);
-    //this.gravityTool();
+    //timed events 
+
+    if (this.progress == 0) {
+      if (this.timer >= 200) {
+        this.progress++
+        this.objective = "Jump over that platform over there"
+        this.popUp = "You can get down fro ma platform using S + Space"
+      }
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    }
+
+    console.log(this.spawnX, this.spawnY)
+    if (this.spawnX == (2304 + 64) && this.spawnY == -(896 + 64) && this.progress == 1) {
+      this.progress++
+      this.objective = "Now jump, and use your jetpack to reach the top of the platform on the eastside"
+      this.popUp = "You can slow down your fall by pressing Space while in the air"
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    }
+
+    if (this.spawnX == (4608 + 64) && this.spawnY == -(1664 + 64) && this.progress == 2) {
+      this.progress++
+      this.objective = "Good. Now there is a practice target over your head. Shoot it then go down the platform"
+      this.popUp = "Aim at the target with your mouse, then press left mouse button to shoot."
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    }
+
+    if (this.spawnX == (5760 + 64) && this.spawnY == -(128 + 64) && this.progress == 3) {
+      this.progress++
+      this.timer = 0
+      this.objective = "Perfect. You may have noticed that your armor's energy depletes when you shoot and use your jetpack."
+      this.popUp = ""
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    }
+    if (this.timer == 200 && this.progress == 4) {
+      this.objective = " Now reach the flag on the far east and shoot the targets."
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    }
+
     if (this.enemies) {
       this.enemies.getChildren().forEach((enemy) => {
         enemy.checkLineOfSight(this.player)
@@ -83,7 +120,7 @@ class Mission01_scene01 extends LevelTemplate {
     if (this.player.hp <= 0) {
       this.playerDeath()
     }
-    this.updateUI.emit('dataUI', this.player.energy, this.gun.name, this.player.hp, this.progress);
+    this.updateUI.emit('dataUI', this.player.energy, this.gun.name, this.player.hp, this.progress / this.progressMax * 100);
     this.localUI();
   }
 

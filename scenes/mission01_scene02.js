@@ -25,8 +25,9 @@ class Mission01_scene02 extends LevelTemplate {
     this.wincondition = true;
     this.killcount = 0;
     this.sceneEnemies = 0;
-    this.objective = "Get back to the base!";
+    this.objective = "All good! Now let's get you started with another gun.";
     this.popUp = "";
+    this.timer = 0
 
   };
 
@@ -42,10 +43,7 @@ class Mission01_scene02 extends LevelTemplate {
     this.platforms = this.createPlatforms(this.layers.platforms)
     this.loadGun(this.player.x, this.player.y, offset);
     this.physics.add.collider(this.player, this.layers.calc_walls);
-    this.enemies = this.loadEnemies(this.layers.enemy_SpawnPoints, this.layers.calc_walls);
-    this.physics.add.collider(this.enemies, this.layers.calc_walls);
-    this.physics.add.collider(this.player, this.enemies);
-    this.mouseActions(this.layers, this.enemies);
+
     this.createCamera();
     this.playAmbientMusic("moon");
     this.loadInterface(this.sceneName, this.player.energy, this.gun.name, this.player.hp);
@@ -54,9 +52,28 @@ class Mission01_scene02 extends LevelTemplate {
     this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     this.qKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.updateUI = new Phaser.Events.EventEmitter();
+
   };
 
   update() {
+    this.timer++
+    if (this.timer == 1) {
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    };
+    if (this.timer == 200) {
+      this.enemies = this.loadEnemies(this.layers.enemy_SpawnPoints, this.layers.calc_walls);
+      this.physics.add.collider(this.enemies, this.layers.calc_walls);
+      this.physics.add.collider(this.player, this.enemies);
+      this.mouseActions(this.layers, this.enemies);
+      this.objective = "What is happening? I'm getting alerts on all my screens!";
+      this.popUp = "";
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    };
+    if (this.timer == 500) {
+      this.objective = "Run back to the base! This is not a drill, I repeat, this is NOT a drill!";
+      this.popUp = "";
+      this.updateUI.emit('newMessage', this.objective, this.popUp);
+    }
     //gameplay methods
     this.generalPositioning();
     this.updateCamera();
@@ -76,7 +93,6 @@ class Mission01_scene02 extends LevelTemplate {
       this.player.energy = this.player.maxEnergy
       this.player.setPosition(this.spawnX, this.spawnY)
     }
-    this.updateUI.emit('newMessage', this.objective, this.popUp);
     this.updateUI.emit('dataUI', this.player.energy, this.gun.name, this.player.hp, this.progress);
     this.localUI();
   }

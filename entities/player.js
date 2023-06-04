@@ -18,7 +18,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.maxVelocity.y = 1000;
         this.body.acceleration.x = 0;
         this.canThrust = true;
-        this.energy = 300
+        this.energy = 350
         this.energy = this.energy
         this.maxEnergy = this.energy;
         this.cursors = this.scene.input.keyboard.createCursorKeys();
@@ -44,7 +44,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.goingDown = false
         }
-        if ((this.energy < 300) && ((aKey.isUp && dKey.isUp && sKey.isUp) || this.body.blocked.down) && space.isUp) {
+        if ((this.energy < this.maxEnergy) && ((aKey.isUp && dKey.isUp && sKey.isUp) || this.body.blocked.down) && space.isUp) {
             this.energy += 1;
             if (this.energy < 0) {
                 this.energy = 0

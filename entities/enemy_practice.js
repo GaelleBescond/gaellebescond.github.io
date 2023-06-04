@@ -16,7 +16,7 @@ class Practice extends Enemy {
     }
     update() {
         if (this.body) {
-            this.stabilize();
+           // this.stabilize();
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-    "activeFile": "Mission01_scene01.json",
+    "activeFile": "Tutorial.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,8 +12,8 @@
             "scale": 0.0625,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 448,
-                "y": 736
+                "x": -2048,
+                "y": 5120
             }
         },
         "Beta_test.json#Tileset_testroom": {
@@ -36,26 +36,26 @@
                 11
             ],
             "scale": 0.0625,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": -2048,
-                "y": 5112
+                "x": 10496,
+                "y": 752
             }
         },
         "Mission01_map.json#Tileset_testroom": {
-            "scaleInDock": 1
+            "scaleInDock": 0.125
         },
         "Mission01_scene01.json": {
             "expandedObjectLayers": [
-                11,
                 4,
-                6
+                6,
+                11
             ],
-            "scale": 0.25,
-            "selectedLayer": 5,
+            "scale": 0.125,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 2676,
-                "y": -536
+                "x": -2048,
+                "y": 5112
             }
         },
         "Mission01_scene01.json#Tileset_testroom": {
@@ -80,30 +80,34 @@
         },
         "Mission01_scene03.json": {
             "expandedObjectLayers": [
-                6
+                4,
+                6,
+                11,
+                15,
+                16
             ],
-            "scale": 0.125,
-            "selectedLayer": 4,
+            "scale": 0.03125,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": -3072,
-                "y": 5116
+                "x": -896,
+                "y": 2496
             }
         },
         "Mission01_scene03.json#Tileset_testroom": {
-            "scaleInDock": 0.33,
+            "scaleInDock": 0.125,
             "scaleInEditor": 0.33
         },
         "Mission01_scene04.json": {
             "expandedObjectLayers": [
-                11,
                 4,
-                6
+                6,
+                11
             ],
-            "scale": 0.0625,
-            "selectedLayer": 5,
+            "scale": 0.03125,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": -176,
-                "y": -432
+                "x": -7808,
+                "y": 2528
             }
         },
         "Mission01_scene04.json#Tileset_testroom": {
@@ -112,15 +116,15 @@
         },
         "Mission01_scene05.json": {
             "expandedObjectLayers": [
-                11,
                 4,
-                6
+                6,
+                11
             ],
-            "scale": 0.0625,
-            "selectedLayer": 4,
+            "scale": 0.03125,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": -3072,
-                "y": 5128
+                "x": -10368,
+                "y": 8064
             }
         },
         "Mission01_scene05.json#Tileset_testroom": {
@@ -131,15 +135,15 @@
             "expandedObjectLayers": [
                 6
             ],
-            "scale": 0.015625,
+            "scale": 0.125,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -3072,
-                "y": 5152
+                "x": -15336,
+                "y": 2568
             }
         },
         "Mission01_scene06.json#Tileset_testroom": {
-            "scaleInDock": 1
+            "scaleInDock": 0.33
         },
         "Mission02.json": {
             "scale": 0.13977864583333333,
@@ -190,7 +194,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 1017.9164923437374,
-                "y": 1958.7180989038575
+                "y": 1948.4361141327088
             }
         },
         "Testroom.json#Tileset_testroom": {
@@ -200,7 +204,7 @@
             "scale": 0.09725748697916665,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1017.9164923437374,
+                "x": 1028.1984771148864,
                 "y": 1033.3394695004604
             }
         },
@@ -213,7 +217,11 @@
         "Mission01_scene05.json",
         "Mission01_scene03.json",
         "Beta_test.json",
-        "Mission01_scene01.json"
+        "Mission01_scene01.json",
+        "Mission01_scene04.json",
+        "Mission01_scene06.json",
+        "Testroom.json",
+        "Tutorial.json"
     ],
     "project": "LevelBuilder.tiled-project",
     "recentFiles": [
@@ -223,10 +231,10 @@
         "Beta_test.json",
         "Mission01_scene01.json",
         "Mission01_scene04.json",
-        "Mission01_scene02.json",
         "Mission01_scene06.json",
         "Testroom.json",
         "Tutorial.json",
+        "Mission01_scene02.json",
         "Mission01.json",
         "Mission04.json"
     ]

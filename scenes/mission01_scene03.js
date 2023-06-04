@@ -16,7 +16,7 @@ class Mission01_scene03 extends LevelTemplate {
     this.fxVolume = data.fxVolume;
     this.chosenGun = 1;
     this.canSwap = true;
-    this.maxWeapons = 2;
+    this.maxWeapons = 1;
     this.targetZoom = 0.55;
     this.physics.world.gravity.y = 1000;
     this.baseGravity = this.physics.world.gravity.y
@@ -58,39 +58,76 @@ class Mission01_scene03 extends LevelTemplate {
   };
 
   update() {
-
+    this.timer++;
     //gameplay methods
     this.generalPositioning();
     this.updateCamera();
+    //level tools for player
+    this.swapGun(this.eKey, this.qKey, this.maxWeapons);
+    //progression in level
     if (this.progress < 100) {
-      this.timer += 1;
-      this.progress = (this.timer / 3000) * 100
+      this.progress = (this.timer / 7000) * 100
       if (this.progress >= 100) {
         this.progress = 100
       }
-    } else {
-      this.objective = "There are too many of them! Run to the underground!"
+    }
+    //timed events
+    if (this.timer == 1) {
+      this.objective = "Your gun is now configured in sniper mode. Use it to defend the base";
+      this.popUp = "Use A/E to switch modes";
+    }
+    if (this.timer == 500) {
+      this.objective = "Our external comms are jammed. I'm trying to fix this! Don't let them in!";
+    }
+    if (this.timer == 1500) {
+      this.newWave(this.layers.enemy_SpawnPoints)    
+      this.objective = "A new wave is coming, watch out!"
       this.popUp = ""
     }
-    //level tools for player
-    this.swapGun(this.eKey, this.qKey, this.maxWeapons);
-    if (this.maxWeapons == 1 && this.timer > 1500) {
-      this.maxWeapons = 2
-      this.objective = "We have provided you a mortar to help"
-      this.popUp = "The mortar is good to deal with groups of enemies and tanks"
+    if (this.timer == 2500) {
+      this.newWave(this.layers.enemy_SpawnPoints1)
+      this.newWave(this.layers.enemy_SpawnPoints)
+      this.objective = "Incoming from above!";
     }
-    //this.gravityTool();
+    if (this.timer == 3000) {
+      this.newWave(this.layers.enemy_SpawnPoints)
+      this.newWave(this.layers.enemy_SpawnPoints1)
+      this.newWave(this.layers.enemy_SpawnPoints)
+      this.maxWeapons = 2
+      this.objective = "I have overridden your weapon authorizations. You now have the mortar mode to help against their packs of soldiers"
+      this.popUp = "The mortar consumes a lot of energy, use it wisely"
+    }
+    if (this.timer == 4000) {
+      this.newWave(this.layers.enemy_SpawnPoints)
+      this.newWave(this.layers.enemy_SpawnPoints1)
+      this.newWave(this.layers.enemy_SpawnPoints2)
+      this.objective = "Wait they are bringing tanks! Use the mortar against them!"
+    }
+    if (this.timer == 5000) {
+      this.newWave(this.layers.enemy_SpawnPoints3)
+      this.newWave(this.layers.enemy_SpawnPoints)
+      this.objective = "Hovercrafts?! Keep looking up, they are deadly!"
+    }
+    if (this.timer == 6000) {      
+      this.newWave(this.layers.enemy_SpawnPoints)
+      this.newWave(this.layers.enemy_SpawnPoints1)
+      this.newWave(this.layers.enemy_SpawnPoints2)
+      this.newWave(this.layers.enemy_SpawnPoints3)      
+      this.objective = "They are too many! And they have broken through the blastdoors!"
+    }
+
+    if (this.timer == 7000) {
+      this.objective = "An SOS has been sent, now run to the underground!"
+      this.wincondition = true;
+    }
+
     if (this.enemies) {
       this.enemies.getChildren().forEach((enemy) => {
         enemy.checkLineOfSight(this.player)
         this.shootEnemyBullet(enemy, this.layers)
       });
     };
-    if (!this.wincondition) {
-      if (this.timer == 3000) {
-        this.wincondition = true;
-      }
-    }
+
 
     if (this.player.hp <= 0) {
       this.player.hp = this.player.maxhp
@@ -100,6 +137,16 @@ class Mission01_scene03 extends LevelTemplate {
     this.updateUI.emit('newMessage', this.objective, this.popUp);
     this.updateUI.emit('dataUI', this.player.energy, this.gun.name, this.player.hp, this.progress);
     this.localUI();
+  }
+
+
+  newWave(spawn){
+    this.enemies = this.loadEnemies(spawn, this.layers.calc_walls);
+    this.physics.add.collider(this.enemies, this.layers.calc_walls);
+    this.physics.add.collider(this.player, this.enemies);
+    this.mouseActions(this.layers, this.enemies);
+
+
   }
 }
 export default Mission01_scene03

@@ -17,7 +17,7 @@ class Preload extends Phaser.Scene {
 
         this.load.image('practice_target', 'assets/practice_target.png');
         this.load.image('door', 'assets/door.png');
-        this.load.image('bullet', 'assets/bullet_rifle.png');
+        this.load.image('bullet_rifle', 'assets/bullet_rifle.png');
         this.load.image('bullet_sniper', 'assets/bullet_sniper.png');
         this.load.image('bullet_mortar', 'assets/bullet_mortar.png');
         this.load.image('platform', 'assets/platform.png');

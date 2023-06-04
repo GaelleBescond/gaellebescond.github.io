@@ -39,6 +39,7 @@ class Mission01_scene04 extends LevelTemplate {
     this.loadPlayer(this.spawnX, this.spawnY, 'player');
     this.checkPoints = this.createSpawns(this.layers.checkPoints);
     this.player.setPosition(this.spawnX, this.spawnY,)
+    this.platforms = this.createPlatforms(this.layers.platforms)
     this.loadGun(this.player.x, this.player.y, offset);
     this.physics.add.collider(this.player, this.layers.calc_walls);
     this.enemies = this.loadEnemies(this.layers.enemy_SpawnPoints, this.layers.calc_walls);
@@ -69,18 +70,22 @@ class Mission01_scene04 extends LevelTemplate {
       });
     };
 
-    if (this.wincondition) {
-      this.progress = Phaser.Math.Distance.Between(this.spawnX, this.spawnY, 1152, 2816) / Phaser.Math.Distance.Between(this.player.x, this.player.y, 1152, 2816);
-    } else {
-      this.progress = Phaser.Math.Distance.Between(this.spawnX, this.spawnY, -13248, 2624) / Phaser.Math.Distance.Between(this.player.x, this.player.y, -13696, 2624);
-    }
+
+
 
     if (this.spawnX == -13248 && this.spawnY == 2624 && !this.wincondition) {
       this.wincondition = true;
       this.objective = "The path is blocked, the mining site in the east might still be open"
       this.popUp = ""
     }
+    if (this.wincondition) {
+      this.progress = Phaser.Math.Distance.Between(this.spawnX, this.spawnY, 1152, 2816) / Phaser.Math.Distance.Between(this.player.x, this.player.y, 1152, 2816);
+    } else {
+      this.progress = Phaser.Math.Distance.Between(this.spawnX, this.spawnY, -13248, 2624) / Phaser.Math.Distance.Between(this.player.x, this.player.y, -13696, 2624);
+    }
     this.progress = 100 - (1 / this.progress) * 100
+
+    
     if (this.progress >= 100) {
       this.progress = 100
     } else if (this.progress <= 0) {

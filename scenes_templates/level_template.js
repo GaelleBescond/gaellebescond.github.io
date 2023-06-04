@@ -58,8 +58,11 @@ class LevelTemplate extends Phaser.Scene {
     const checkPoints = levelMap.getObjectLayer("Player_Spawn");
     const platforms = levelMap.getObjectLayer("Platforms");
     const enemy_SpawnPoints = levelMap.getObjectLayer("Enemies_Spawn");
+    const enemy_SpawnPoints1 = levelMap.getObjectLayer("Enemies_Spawn_1");
+    const enemy_SpawnPoints2 = levelMap.getObjectLayer("Enemies_Spawn_2");
+    const enemy_SpawnPoints3 = levelMap.getObjectLayer("Enemies_Spawn_3");
     calc_walls.setCollisionByProperty({ isSolid: true });
-    return { checkPoints, calc_walls, /*calc_terrain,*/ tileset, enemy_SpawnPoints, platforms, }
+    return { checkPoints, calc_walls, /*calc_terrain,*/ tileset, enemy_SpawnPoints, platforms, enemy_SpawnPoints1, enemy_SpawnPoints2, enemy_SpawnPoints3 }
   }
 
   loadBackground() {
@@ -171,6 +174,7 @@ class LevelTemplate extends Phaser.Scene {
         enemy = new Turret(this, spawn.x, spawn.y, "enemy_turret").setScale(1).setDepth(0).setImmovable(true);
       } else if (spawn.name == "practice") {
         enemy = new Practice(this, spawn.x, spawn.y, "practice_target").setScale(0.25).setDepth(0).setImmovable(true);
+        enemy.body.setAllowGravity(false)
       } else if (spawn.name == "door") {
         enemy = new Door(this, spawn.x, spawn.y, "door").setScale(0.50).setDepth(0).setImmovable(true);
       }
@@ -261,7 +265,7 @@ class LevelTemplate extends Phaser.Scene {
     let sound = null
     let bullet = null
     if (this.chosenGun == 0) {
-      bullet = this.physics.add.sprite(originX, originY, 'bullet').setCircle(10)
+      bullet = this.physics.add.sprite(originX, originY, 'bullet_rifle').setCircle(10)
       texture = 'particle_rifle'
       sound = 'shoot'
     } else if (this.chosenGun == 1) {
@@ -285,12 +289,9 @@ class LevelTemplate extends Phaser.Scene {
       blendMode: 'ADD'
     });
     const particle = emitter.emitParticle();
-    this.time.delayedCall(4000, () => {
+    this.time.delayedCall(1000, () => {
       this.killParticles(emitter)
     });
-
-
-
     bullet.setVelocity(Math.cos(angle) * this.gun.bulletVelocity, Math.sin(angle) * this.gun.bulletVelocity);
     if (bullet.texture.key == 'bullet_mortar') {
       this.physics.add.collider(bullet, layers.calc_walls, this.splashDamage, null, this)
@@ -336,7 +337,7 @@ class LevelTemplate extends Phaser.Scene {
           enemyBullet = this.physics.add.sprite(enemy.x, enemy.y, 'mortar_orb').setScale(0.25).setCircle(100)
           sound = 'sound_mortar'
         } else if (enemy.name == "turret") {
-          enemyBullet = this.physics.add.sprite(enemy.x, enemy.y, 'bullet_rifle').setScale(0.25).setCircle(100)
+          enemyBullet = this.physics.add.sprite(enemy.x, enemy.y, 'bullet_rifle').setCircle(10)
           sound = 'shoot'
         } else {
           enemyBullet = this.physics.add.sprite(enemy.x, enemy.y, 'bullet')
