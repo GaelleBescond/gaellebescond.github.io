@@ -21,7 +21,6 @@ class Preload extends Phaser.Scene {
         this.load.image('bullet_sniper', 'assets/bullet_sniper.png');
         this.load.image('bullet_mortar', 'assets/bullet_mortar.png');
         this.load.image('platform', 'assets/platform.png');
-        this.load.image('asteroidBackground', 'assets/bg.jpg');
         this.load.image('backgroundSpace', 'assets/backgroundSpace.png');
         this.load.image('asteroidBackground2', 'assets/asteroidsFar.png');
         this.load.image('asteroidBackground3', 'assets/asteroidsNear.png');
@@ -64,6 +63,7 @@ class Preload extends Phaser.Scene {
         this.load.tilemapTiledJSON("Mission01_scene03", "levels/Mission01_scene03.json");
         this.load.tilemapTiledJSON("Mission01_scene04", "levels/Mission01_scene04.json");
         this.load.tilemapTiledJSON("Mission01_scene05", "levels/Mission01_scene05.json");
+        this.load.tilemapTiledJSON("Mission01_scene06", "levels/Mission01_scene06.json");
 
     }
 

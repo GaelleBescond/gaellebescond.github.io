@@ -6,7 +6,7 @@ class Mission01_scene06 extends LevelTemplate {
 
   init(data) {
     this.sceneName = "Mission01_scene06"
-    this.nextSceneName = "Mission01_scene07"
+    this.nextSceneName = "MainMenu"
     this.data_holder = {
       gunAngle: 0,
       cameraPosX: 0,
@@ -23,12 +23,11 @@ class Mission01_scene06 extends LevelTemplate {
     this.offset = 36
     this.spawnX = 0;
     this.spawnY = 0;
-    this.wincondition = false;
+    this.wincondition = true;
     this.killcount = 0;
     this.sceneEnemies = 0;
     this.objective = "Eliminate the enemy marine";
     this.popUp = "";
-    this.components = 0;
   };
 
   create() {

@@ -23,7 +23,7 @@ class Mission01_scene05 extends LevelTemplate {
     this.offset = 36
     this.spawnX = 0;
     this.spawnY = 0;
-    this.wincondition = false;
+    this.wincondition = true;
     this.killcount = 0;
     this.sceneEnemies = 0;
     this.objective = "Gather the 3 components to reactivate the drill";
