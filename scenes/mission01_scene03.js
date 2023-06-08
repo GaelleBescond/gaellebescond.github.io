@@ -141,10 +141,10 @@ class Mission01_scene03 extends LevelTemplate {
 
 
   newWave(spawn){
-    this.enemies = this.loadEnemies(spawn, this.layers.calc_walls);
-    this.physics.add.collider(this.enemies, this.layers.calc_walls);
-    this.physics.add.collider(this.player, this.enemies);
-    this.mouseActions(this.layers, this.enemies);
+    let enemies = this.loadEnemies(spawn, this.layers.calc_walls);
+    this.physics.add.collider(enemies, this.layers.calc_walls);
+    this.physics.add.collider(this.player, enemies);
+    this.mouseActions(this.layers, enemies);
 
 
   }

@@ -26,7 +26,7 @@ class Mission01_scene04 extends LevelTemplate {
     this.wincondition = false;
     this.killcount = 0;
     this.sceneEnemies = 0;
-    this.objective = "Reach the escape pod using the tunnel to the west";
+    this.objective = "Reach the escape shuttle in the west using the underground tunnel";
     this.popUp = "";
 
   };

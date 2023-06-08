@@ -45,7 +45,7 @@ class Interface extends Phaser.Scene {
         useAdvancedWrap: true
       }
     }).setOrigin(0.5);
-    this.popUP = this.add.text(this.width - this.increment * 8, this.increment * 3, "", {
+    this.popUP = this.add.text(this.width - this.increment * 30, this.increment * 4, "", {
       fontFamily: "Arial", fontSize: '16px', fill: '#FF0000', wordWrap: {
         width: 400,
         useAdvancedWrap: true

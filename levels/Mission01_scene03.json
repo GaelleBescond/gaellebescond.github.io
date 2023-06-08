@@ -4195,7 +4195,7 @@
                  "visible":true,
                  "width":0,
                  "x":-6528,
-                 "y":0
+                 "y":-128
                 }, 
                 {
                  "class":"",
@@ -4207,7 +4207,7 @@
                  "visible":true,
                  "width":0,
                  "x":-128,
-                 "y":0
+                 "y":-128
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -165,7 +165,7 @@ class LevelTemplate extends Phaser.Scene {
       let enemy = null;
 
       if (spawn.name == "soldier") {
-        enemy = new Soldier(this, spawn.x, spawn.y, "enemy_soldier").setScale(0.25).setDepth(0);
+        enemy = new Soldier(this, spawn.x, spawn.y, "enemy_soldier").setScale(0.55).setDepth(0);
       } else if (spawn.name == "tank") {
         enemy = new Tank(this, spawn.x, spawn.y, "enemy_tank").setScale(1).setDepth(0);
       } else if (spawn.name == "hover") {

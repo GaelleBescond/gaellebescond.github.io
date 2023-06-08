@@ -26,7 +26,7 @@ class Mission01_scene05 extends LevelTemplate {
     this.wincondition = true;
     this.killcount = 0;
     this.sceneEnemies = 0;
-    this.objective = "Gather the 3 components to reactivate the drill";
+    this.objective = "Find your way to the shuttle";
     this.popUp = "We have lost control of the autodefence turrets. Stay alert!";
     this.components = 0;
   };

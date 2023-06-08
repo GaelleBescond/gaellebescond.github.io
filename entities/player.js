@@ -85,7 +85,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         //jump
         if (space.isDown && sKey.isUp) {
-            this.body.acceleration.y = -600;
+            this.body.acceleration.y = -575;
             this.setVelocityY(this.body.acceleration.y);
         } else {
             this.body.acceleration.y = 0;
